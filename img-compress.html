@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free and fast online image compression tool. Compress PNG, JPG, JPEG images without quality loss. SEO-optimized tool with AdSense support.">
+  <meta name="keywords" content="image compression, online image optimizer, compress JPG, compress PNG, reduce image size">
+  <meta name="author" content="Your Name">
+  <title>Responsive Image Compression Tool</title>
+
+  <!-- SEO and Performance Enhancements -->
+  <link rel="canonical" href="https://yourdomain.com/image-compression">
+  <meta name="robots" content="index, follow">
+
+  <!-- Styles -->
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e9ecef;
+      color: #333;
+    }
+
+    header, footer {
+      background: #343a40;
+      color: white;
+      text-align: center;
+      padding: 1.5em 1em;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 2em;
+    }
+
+    .container {
+      background: white;
+      padding: 2.5em;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin: 1em 0 0.5em;
+      font-weight: bold;
+    }
+
+    input[type="file"],
+    input[type="range"] {
+      width: 100%;
+      margin-bottom: 1em;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 0.75em 1.5em;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .preview {
+      margin-top: 1.5em;
+      max-width: 100%;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+    }
+
+    .ad-space {
+      margin: 3em 0;
+      text-align: center;
+      padding: 1em;
+      background: #f1f3f5;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Image Compression Tool</h1>
+    <p>Optimize your images efficiently and effortlessly</p>
+  </header>
+
+  <main>
+    <div class="container">
+      <label for="imageUpload">Upload an Image:</label>
+      <input type="file" id="imageUpload" accept="image/*">
+
+      <label for="quality">Compression Quality: <span id="qualityLabel">80</span>%</label>
+      <input type="range" id="quality" min="10" max="100" value="80">
+
+      <button onclick="compressImage()">Compress Image</button>
+
+      <canvas id="canvas" style="display: none;"></canvas>
+      <img id="preview" class="preview" src="" alt="Compressed Image Preview">
+    </div>
+
+    <!-- Advertisement Area -->
+    <div class="ad-space">
+      <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your AdSense ID -->
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="1234567890"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Image Compression Tool. All rights reserved.</p>
+  </footer>
+
+  <!-- Script for dynamic functionality -->
+  <script>
+    const imageUpload = document.getElementById('imageUpload');
+    const qualitySlider = document.getElementById('quality');
+    const qualityLabel = document.getElementById('qualityLabel');
+    const canvas = document.getElementById('canvas');
+    const preview = document.getElementById('preview');
+
+    qualitySlider.addEventListener('input', () => {
+      qualityLabel.textContent = qualitySlider.value;
+    });
+
+    function compressImage() {
+      const file = imageUpload.files[0];
+      if (!file) return alert("Please select an image.");
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const img = new Image();
+        img.onload = function () {
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          const compressedData = canvas.toDataURL('image/jpeg', qualitySlider.value / 100);
+          preview.src = compressedData;
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+
+</html>
